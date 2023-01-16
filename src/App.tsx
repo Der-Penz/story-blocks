@@ -1,36 +1,31 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import './App.css';
+import StoryBuilder from './classes/StoryBuilder';
+import EditorWindow from './components/EditorWindow';
+
+const code = `async function t = 10;
+let i = 10;
+function c(number){
+	return number * 10 * Math.random() * 2; //return number * 10 * Math.random() * 2;
+}
+
+c(10);
+console.log({key: "mike"})`;
+
+const storyBuilder = new StoryBuilder(code, 'javascript', 'server', [1]);
+
+storyBuilder.addStep({ addLine: [2, 3, 5] });
+storyBuilder.addStep({ addLine: 4, deleteLine: 3 });
+storyBuilder.addStep({ addLine: [1, 2, 3, 4, 5, 6, 7, 8] });
+
+const story = storyBuilder.buildStory();
 
 function App() {
-	const [count, setCount] = useState(0);
-
 	return (
-		<div className="App">
-			<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src="/vite.svg" className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://reactjs.org" target="_blank">
-					<img
-						src={reactLogo}
-						className="logo react"
-						alt="React logo"
-					/>
-				</a>
-			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
+		<div className="App flex justify-center items-start mt-10 h-[100vh]">
+			<EditorWindow
+				story={story}
+				showLineNumbers={true}
+				preserveLineNumbers={true}
+			/>
 		</div>
 	);
 }
