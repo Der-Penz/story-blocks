@@ -8,14 +8,17 @@ interface ICodeBlockProps {
 	story: Story;
 	showLineNumbers: boolean;
 	preserveLineNumbers: boolean;
-	page: number;
+	pages: {
+		prev: number;
+		current: number;
+	};
 }
 
 export default function CodeBlock({
 	story,
 	showLineNumbers,
 	preserveLineNumbers,
-	page,
+	pages,
 }: ICodeBlockProps) {
 	return (
 		<Highlight
@@ -28,12 +31,20 @@ export default function CodeBlock({
 				<pre className={className} style={style}>
 					<AnimatePresence>
 						{tokens.map((line, i) => {
-							const currentLine = story.story[page].lines[i + 1];
+							const currentLine =
+								story.story[pages.current].lines[i + 1];
+							const previousLine =
+								story.story[pages.prev].lines[i + 1];
+
 							if (!currentLine.visible) {
 								return;
 							}
 							return (
 								<CodeLine
+									changed={
+										currentLine.visible !==
+										previousLine.visible
+									}
 									key={i}
 									lineInfo={currentLine}
 									showLineNumber={showLineNumbers}
