@@ -22,8 +22,8 @@ export default function CodeLine({
 		<motion.div
 			key={lineInfo.lineNumber}
 			className={classNames('flex gap-2 origin-top px-2 border-l-4', {
-				'bg-[#c084fc1f]': changed,
-				'border-l-purple-400': changed,
+				'bg-primary-400/10': changed,
+				'border-l-primary-400': changed,
 				'border-l-transparent': !changed,
 			})}
 			initial={{

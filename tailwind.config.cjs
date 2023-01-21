@@ -1,11 +1,77 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+	theme: {
+		colors: {
+			primary: {
+				50: '#f4f1fc',
+				100: '#eae5fa',
+				200: '#dad0f5',
+				300: '#c3b2ef',
+				400: '#b293e6',
+				500: '#a479db',
+				600: '#985fcc',
+				700: '#844fb3',
+				800: '#6c4291',
+				900: '#372549',
+			},
+			secondary: {
+				50: '#fef2f3',
+				100: '#fde6e8',
+				200: '#fbd0d6',
+				300: '#f8a9b6',
+				400: '#f3798f',
+				500: '#e94a6a',
+				600: '#d8315b',
+				700: '#b41c46',
+				800: '#971a41',
+				900: '#811a3d',
+			},
+			accent: {
+				50: '#fff9eb',
+				100: '#feefc7',
+				200: '#fddd8a',
+				300: '#fbc64e',
+				400: '#faa916',
+				500: '#f48c0c',
+				600: '#d86707',
+				700: '#b3460a',
+				800: '#92360e',
+				900: '#782d0f',
+			},
+			neutral: {
+				50: '#f2fbfd',
+				100: '#e4f4fa',
+				200: '#b1e5f2',
+				300: '#8cdced',
+				400: '#4fc9e1',
+				500: '#29b3ce',
+				600: '#1a91af',
+				700: '#16748e',
+				800: '#166276',
+				900: '#185262',
+			},
+			base: {
+				50: '#eeeeff',
+				100: '#e0e0ff',
+				200: '#cac8fd',
+				300: '#aba6fb',
+				400: '#9282f7',
+				500: '#8264f0',
+				600: '#7448e3',
+				700: '#653ac8',
+				800: '#5231a2',
+				900: '#160f29',
+			},
+			transparent: 'transparent',
+			currentColor: 'currentColor',
+		},
+
+		extend: {
+			borderWidth: {
+				1: '1px',
+			},
+		},
+	},
+	plugins: [],
+};

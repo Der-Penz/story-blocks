@@ -27,47 +27,51 @@ export default function CodeBlock({
 			theme={nightOwlTheme}
 			language={story.language}
 		>
-			{({ className, style, tokens, getLineProps, getTokenProps }) => (
-				<pre className={className} style={style}>
-					<AnimatePresence>
-						{tokens.map((line, i) => {
-							const currentLine =
-								story.story[pages.current].lines[i + 1];
-							const previousLine =
-								story.story[pages.prev].lines[i + 1];
+			{({ className, style, tokens, getLineProps, getTokenProps }) => {
+				return (
+					<pre className={className}>
+						<AnimatePresence>
+							{tokens.map((line, i) => {
+								const currentLine =
+									story.story[pages.current].lines[i + 1];
+								const previousLine =
+									story.story[pages.prev].lines[i + 1];
 
-							if (!currentLine.visible) {
-								return;
-							}
-							return (
-								<CodeLine
-									changed={
-										currentLine.visible !==
-										previousLine.visible
-									}
-									key={i}
-									lineInfo={currentLine}
-									showLineNumber={showLineNumbers}
-									preservedLineNumber={
-										!preserveLineNumbers ? i + 1 : undefined
-									}
-								>
-									<div {...getLineProps({ line })}>
-										{line.map((token, key) => (
-											<span
-												{...getTokenProps({
-													token,
-													key,
-												})}
-											/>
-										))}
-									</div>
-								</CodeLine>
-							);
-						})}
-					</AnimatePresence>
-				</pre>
-			)}
+								if (!currentLine.visible) {
+									return;
+								}
+								return (
+									<CodeLine
+										changed={
+											currentLine.visible !==
+											previousLine.visible
+										}
+										key={i}
+										lineInfo={currentLine}
+										showLineNumber={showLineNumbers}
+										preservedLineNumber={
+											!preserveLineNumbers
+												? i + 1
+												: undefined
+										}
+									>
+										<div {...getLineProps({ line })}>
+											{line.map((token, key) => (
+												<span
+													{...getTokenProps({
+														token,
+														key,
+													})}
+												/>
+											))}
+										</div>
+									</CodeLine>
+								);
+							})}
+						</AnimatePresence>
+					</pre>
+				);
+			}}
 		</Highlight>
 	);
 }

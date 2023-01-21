@@ -17,12 +17,15 @@ storyBuilder.addStep({ addLine: 4, deleteLine: 3 });
 storyBuilder.addStep({ addLine: [1, 2, 3, 4, 5, 6, 7, 8] });
 
 const story = storyBuilder.buildStory();
+storyBuilder.addStep({ addLine: [1, 2, 3, 4, 5, 6, 7, 8] });
+storyBuilder.addStep({ addLine: [1, 2, 3, 4, 5, 6, 7, 8] });
+const story2 = storyBuilder.buildStory();
 
 function App() {
 	return (
-		<div className="App flex justify-center items-start mt-10 h-[100vh]">
+		<div className="App flex justify-center items-start h-[100vh]">
 			<EditorWindow
-				story={story}
+				storys={[story, story2]}
 				showLineNumbers={true}
 				preserveLineNumbers={true}
 			/>
