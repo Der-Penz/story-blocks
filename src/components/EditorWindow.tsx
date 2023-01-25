@@ -9,10 +9,12 @@ interface IEditorWindowProps {
 	storys: Story[];
 	showLineNumbers: boolean;
 	preserveLineNumbers: boolean;
+	width: string | number;
 }
 
 export default function EditorWindow({
 	storys,
+	width = '50%',
 	showLineNumbers = true,
 	preserveLineNumbers = false,
 }: IEditorWindowProps) {
@@ -32,7 +34,7 @@ export default function EditorWindow({
 	};
 
 	return (
-		<div className="m-2">
+		<div className="m-2" style={{ width }}>
 			<section className="flex justify-center items-center gap-2 mx-auto my-2">
 				{currentStory.story.map((_, i) => (
 					<div
@@ -60,26 +62,28 @@ export default function EditorWindow({
 					</div>
 				))}
 			</section>
-			<div className="rounded-lg bg-base-900 border-1 border-base-50/20 w-[50vw] overflow-hidden">
-				<header className="overflow-auto flex scrollbar-hide snap-mandatory snap-x">
-					{storys.map((story, i) => (
-						<span
-							onClick={() => switchStory(i)}
-							className={classNames(
-								'snap-start relative font-thin text-base-50/60 px-6 py-2 text-center select-none transition-colors',
-								storyPage === i
-									? 'bg-primary-300/10 border-b-primary-300 border-b-4'
-									: 'bg-transparent border-b-primary-50 border-b-1',
-							)}
-						>
-							{story.fileName}
-							<span className="text-base-100/50 absolute right-2 scale-150">
-								×
+			<div className="rounded-lg bg-base-900 border-1 border-base-50/20">
+				<div className="overflow-hidden rounded-t-lg">
+					<header className="overflow-auto flex scrollbar-hide snap-mandatory snap-x">
+						{storys.map((story, i) => (
+							<span
+								onClick={() => switchStory(i)}
+								className={classNames(
+									'snap-start relative font-thin text-base-50/60 px-6 py-2 text-center select-none transition-colors',
+									storyPage === i
+										? 'bg-primary-300/10 border-b-primary-300 border-b-4'
+										: 'bg-transparent border-b-primary-50 border-b-1',
+								)}
+							>
+								{story.fileName}
+								<span className="text-base-100/50 absolute right-2 scale-150">
+									×
+								</span>
 							</span>
-						</span>
-					))}
-					<span className="border-b-1 border-primary-50/50 flex-1"></span>
-				</header>
+						))}
+						<span className="border-b-1 border-primary-50/50 flex-1"></span>
+					</header>
+				</div>
 				<section>
 					<CodeBlock
 						pages={{

@@ -1,8 +1,16 @@
 import { Language } from 'prism-react-renderer';
 
+type HighlightedValue = {
+	lineNumber: number | number[];
+	value: string;
+	data?: string | object;
+	preserve: boolean;
+};
+
 export type StoryStep = {
 	deleteLine?: number[] | number;
 	addLine?: number[] | number;
+	highlights?: HighlightedValue[];
 };
 
 export type StoryState = {
@@ -11,7 +19,11 @@ export type StoryState = {
 	};
 };
 
-export type LineValue = { visible: boolean; lineNumber: number };
+export type LineValue = {
+	visible: boolean;
+	lineNumber: number;
+	highlight?: HighlightedValue[];
+};
 
 export type Story = {
 	story: StoryState[];

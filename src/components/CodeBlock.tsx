@@ -20,6 +20,8 @@ export default function CodeBlock({
 	preserveLineNumbers,
 	pages,
 }: ICodeBlockProps) {
+	let preservedLineNumber = 1;
+
 	return (
 		<Highlight
 			{...defaultProps}
@@ -40,6 +42,7 @@ export default function CodeBlock({
 								if (!currentLine.visible) {
 									return;
 								}
+
 								return (
 									<CodeLine
 										changed={
@@ -50,20 +53,54 @@ export default function CodeBlock({
 										lineInfo={currentLine}
 										showLineNumber={showLineNumbers}
 										preservedLineNumber={
-											!preserveLineNumbers
+											preserveLineNumbers
 												? i + 1
-												: undefined
+												: preservedLineNumber++
 										}
 									>
 										<div {...getLineProps({ line })}>
-											{line.map((token, key) => (
-												<span
-													{...getTokenProps({
-														token,
-														key,
-													})}
-												/>
-											))}
+											{line.map((token, key) => {
+												const resultedHighlight =
+													currentLine.highlight?.find(
+														(highlight) =>
+															highlight.value.trim() ===
+															token.content.trim(),
+													);
+												if (resultedHighlight) {
+													return (
+														<span className="bg-base-50/20 rounded-sm relative group">
+															<span
+																{...getTokenProps(
+																	{
+																		token,
+																		key,
+																	},
+																)}
+															/>
+															<div className="invisible left-0 bg-base-50/80 text-base-900 font-semibold rounded-md min-w-max p-1 group-hover:visible absolute isolate">
+																{typeof resultedHighlight.data ===
+																'string'
+																	? resultedHighlight.data
+																	: JSON.stringify(
+																			resultedHighlight.data,
+																			null,
+																			2,
+																	  )}
+																<div className="absolute -inset-0.5 bg-base-50/50 -z-10 blur opacity-50"></div>
+															</div>
+														</span>
+													);
+												}
+
+												return (
+													<span
+														{...getTokenProps({
+															token,
+															key,
+														})}
+													/>
+												);
+											})}
 										</div>
 									</CodeLine>
 								);

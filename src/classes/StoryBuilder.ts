@@ -1,7 +1,5 @@
 import { Language } from 'prism-react-renderer';
-import {} from 'prismjs';
 import LANGUAGE_MAP from '../helpers/LanguageMap';
-import { deepCopy } from '../helpers/Util';
 import { Story, StoryState, StoryStep } from '../types/StoryTypes';
 
 class StoryBuilder {
@@ -64,7 +62,9 @@ class StoryBuilder {
 
 		this._steps.forEach((step) => {
 			const previousState = story.at(-1)!;
-			const nextState: StoryState = deepCopy(previousState) as StoryState;
+			const nextState: StoryState = structuredClone(
+				previousState,
+			) as StoryState;
 
 			if (typeof step.deleteLine === 'number') {
 				nextState.lines[step.deleteLine].visible = false;
@@ -82,6 +82,26 @@ class StoryBuilder {
 					(lineNumber) =>
 						(nextState.lines[lineNumber].visible = true),
 				);
+			}
+
+			Object.values(nextState.lines).forEach((line) => {
+				line.highlight = line.highlight?.filter(
+					(highlight) => highlight.preserve,
+				);
+			});
+
+			if (step.highlights) {
+				step.highlights.forEach((highlight) => {
+					if (Array.isArray(highlight.lineNumber)) {
+						highlight.lineNumber.forEach((number) => {
+							nextState.lines[number].highlight = [highlight];
+						});
+					} else {
+						nextState.lines[highlight.lineNumber].highlight = [
+							highlight,
+						];
+					}
+				});
 			}
 
 			story.push(nextState);
