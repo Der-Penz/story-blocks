@@ -1,5 +1,5 @@
 import StoryBuilder from './classes/StoryBuilder';
-import EditorWindow from './components/EditorWindow';
+import StoryBlock from './components/StoryBlock';
 
 const code = `async function t = 10;
 let i = 10;
@@ -46,7 +46,7 @@ console.log(storyBuilder);
 function App() {
 	return (
 		<div className="App flex justify-center items-start h-[100vh]">
-			<EditorWindow
+			<StoryBlock
 				storys={[story, story2]}
 				showLineNumbers={true}
 				preserveLineNumbers={true}

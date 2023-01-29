@@ -5,19 +5,19 @@ import { usePreviousValue } from '../hooks/usePreviousValue';
 import { Story } from '../types/StoryTypes';
 import CodeBlock from './CodeBlock';
 
-interface IEditorWindowProps {
+interface IStoryBlockProps {
 	storys: Story[];
 	showLineNumbers: boolean;
 	preserveLineNumbers: boolean;
-	width: string | number;
+	width?: string | number;
 }
 
-export default function EditorWindow({
+export default function StoryBlock({
 	storys,
 	width = '50%',
 	showLineNumbers = true,
 	preserveLineNumbers = false,
-}: IEditorWindowProps) {
+}: IStoryBlockProps) {
 	const [page, setPage] = useState(0);
 	const [storyPage, setStoryPage] = useState(0);
 	const previousPage = usePreviousValue(page);
